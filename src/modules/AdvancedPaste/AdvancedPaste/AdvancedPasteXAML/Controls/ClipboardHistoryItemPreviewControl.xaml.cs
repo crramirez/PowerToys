@@ -44,6 +44,8 @@ namespace AdvancedPaste.Controls
 
         public bool HasColor => !string.IsNullOrEmpty(ClipboardItem?.ColorHex);
 
+        public bool HasColorWithText => HasColor;
+
         public ClipboardHistoryItemPreviewControl()
         {
             InitializeComponent();

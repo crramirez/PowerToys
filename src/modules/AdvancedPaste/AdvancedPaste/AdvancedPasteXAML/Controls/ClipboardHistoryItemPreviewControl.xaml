@@ -26,13 +26,28 @@
                     Source="{x:Bind ClipboardItem.Image, Mode=OneWay}"
                     Stretch="UniformToFill"
                     Visibility="{x:Bind HasImage, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
-                <!--  Color preview  -->
-                <Rectangle
-                    Margin="16"
-                    Fill="{x:Bind ClipboardItem.ColorHex, Mode=OneWay, Converter={StaticResource HexColorToBrushConverter}}"
-                    RadiusX="8"
-                    RadiusY="8"
-                    Visibility="{x:Bind HasColor, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <!--  Color preview with text  -->
+                <Grid Visibility="{x:Bind HasColorWithText, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle
+                        Grid.Column="0"
+                        Width="32"
+                        Height="32"
+                        Margin="8,0,8,0"
+                        Fill="{x:Bind ClipboardItem.ColorHex, Mode=OneWay, Converter={StaticResource HexColorToBrushConverter}}"
+                        RadiusX="4"
+                        RadiusY="4" />
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontSize="10"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind ClipboardItem.Content, Mode=OneWay}"
+                        TextWrapping="NoWrap" />
+                </Grid>
                 <!--  Text preview  -->
                 <TextBlock
                     Margin="8,0,0,0"
