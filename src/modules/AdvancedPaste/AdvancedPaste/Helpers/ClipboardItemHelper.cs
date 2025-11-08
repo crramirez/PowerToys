@@ -13,6 +13,9 @@ namespace AdvancedPaste.Helpers
 {
     internal static class ClipboardItemHelper
     {
+        // Compiled regex for better performance when checking multiple clipboard items
+        private static readonly Regex HexColorRegex = new Regex(@"^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$", RegexOptions.Compiled);
+
         /// <summary>
         /// Creates a ClipboardItem from current clipboard data.
         /// </summary>
@@ -93,8 +96,7 @@ namespace AdvancedPaste.Helpers
             }
 
             // Match #RGB or #RRGGBB format (case-insensitive)
-            var regex = new Regex(@"^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$");
-            return regex.IsMatch(text.Trim());
+            return HexColorRegex.IsMatch(text.Trim());
         }
     }
 }
