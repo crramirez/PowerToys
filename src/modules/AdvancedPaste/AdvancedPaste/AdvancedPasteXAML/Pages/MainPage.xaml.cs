@@ -68,13 +68,21 @@ namespace AdvancedPaste.Pages
                             if (item.Content.Contains(StandardDataFormats.Text))
                             {
                                 string text = await item.Content.GetTextAsync();
-                                items.Add(new ClipboardItem
+                                var clipboardItem = new ClipboardItem
                                 {
                                     Content = text,
                                     Format = ClipboardFormat.Text,
                                     Timestamp = item.Timestamp,
                                     Item = item,
-                                });
+                                };
+
+                                // Check if the text is a valid RGB hex color
+                                if (ClipboardItemHelper.IsRgbHexColor(text))
+                                {
+                                    clipboardItem.ColorHex = text.Trim();
+                                }
+
+                                items.Add(clipboardItem);
                             }
                             else if (item.Content.Contains(StandardDataFormats.Bitmap))
                             {

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AdvancedPaste.Models;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -79,6 +80,21 @@ namespace AdvancedPaste.Helpers
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Checks if text is a valid RGB hex color (e.g., #FFBFAB or #fff).
+        /// </summary>
+        public static bool IsRgbHexColor(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return false;
+            }
+
+            // Match #RGB or #RRGGBB format (case-insensitive)
+            var regex = new Regex(@"^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$");
+            return regex.IsMatch(text.Trim());
         }
     }
 }

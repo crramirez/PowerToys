@@ -22,6 +22,9 @@ public class ClipboardItem
     // Only used for clipboard history items that have a ClipboardHistoryItem
     public ClipboardHistoryItem Item { get; set; }
 
+    // Store color if content is a valid RGB hex color
+    public string ColorHex { get; set; }
+
     public string Description => !string.IsNullOrEmpty(Content) ? Content :
                                  Image is not null ? ResourceLoaderInstance.ResourceLoader.GetString("ClipboardHistoryImage") :
                                  string.Empty;
