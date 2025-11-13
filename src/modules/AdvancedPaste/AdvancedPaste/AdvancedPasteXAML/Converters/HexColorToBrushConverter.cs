@@ -9,7 +9,7 @@ using Microsoft.UI.Xaml.Media;
 
 namespace AdvancedPaste.Converters
 {
-    public sealed class HexColorToBrushConverter : IValueConverter
+    public sealed partial class HexColorToBrushConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
