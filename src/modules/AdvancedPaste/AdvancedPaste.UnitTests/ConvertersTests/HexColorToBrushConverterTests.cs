@@ -22,15 +22,15 @@ public sealed class HexColorToBrushConverterTests
     [TestMethod]
     public void TestConvert_ValidSixDigitHex_ReturnsBrush()
     {
-        var result = _converter.Convert("#FFBFAB", typeof(SolidColorBrush), null, null);
+        Windows.UI.Color result = HexColorToBrushConverter.ConvertHexColorToRGB("#FFBFAB");
         Assert.IsNotNull(result);
         Assert.IsInstanceOfType(result, typeof(SolidColorBrush));
 
-        var brush = result as SolidColorBrush;
-        Assert.AreEqual(255, brush.Color.R);
-        Assert.AreEqual(191, brush.Color.G);
-        Assert.AreEqual(171, brush.Color.B);
-        Assert.AreEqual(255, brush.Color.A);
+        var color = (Windows.UI.Color)result;
+        Assert.AreEqual(255, color.R);
+        Assert.AreEqual(191, color.G);
+        Assert.AreEqual(171, color.B);
+        Assert.AreEqual(255, color.A);
     }
 
     [TestMethod]
@@ -41,6 +41,7 @@ public sealed class HexColorToBrushConverterTests
         Assert.IsInstanceOfType(result, typeof(SolidColorBrush));
 
         var brush = result as SolidColorBrush;
+
         // #abc should expand to #aabbcc
         Assert.AreEqual(170, brush.Color.R); // 0xaa
         Assert.AreEqual(187, brush.Color.G); // 0xbb

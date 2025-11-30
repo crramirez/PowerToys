@@ -27,19 +27,17 @@
                     Stretch="UniformToFill"
                     Visibility="{x:Bind HasImage, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
                 <!--  Color preview with text  -->
-                <Grid Visibility="{x:Bind HasColorWithText, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid Visibility="{x:Bind HasColor, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Rectangle
+                    <Ellipse
                         Grid.Column="0"
-                        Width="32"
-                        Height="32"
+                        Width="8"
+                        Height="8"
                         Margin="8,0,8,0"
-                        Fill="{x:Bind ClipboardItem.ColorHex, Mode=OneWay, Converter={StaticResource HexColorToBrushConverter}}"
-                        RadiusX="4"
-                        RadiusY="4" />
+                        Fill="{x:Bind ClipboardItem.Content, Mode=OneWay, Converter={StaticResource HexColorToBrushConverter}}"/>
                     <TextBlock
                         Grid.Column="1"
                         VerticalAlignment="Center"

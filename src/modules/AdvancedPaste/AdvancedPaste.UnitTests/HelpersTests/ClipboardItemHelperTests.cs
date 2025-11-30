@@ -18,9 +18,9 @@ public sealed class ClipboardItemHelperTests
     [DataRow("#abc", true)]
     [DataRow("#123456", true)]
     [DataRow("#AbCdEf", true)]
-    [DataRow("FFBFAB", false)]  // Missing #
+    [DataRow("FFBFAB", false)] // Missing #
     [DataRow("#GGGGGG", false)] // Invalid hex characters
-    [DataRow("#12345", false)]  // Wrong length
+    [DataRow("#12345", false)] // Wrong length
     [DataRow("#1234567", false)] // Too long
     [DataRow("", false)]
     [DataRow(null, false)]

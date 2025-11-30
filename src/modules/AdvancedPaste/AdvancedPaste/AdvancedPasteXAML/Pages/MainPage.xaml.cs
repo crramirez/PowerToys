@@ -76,12 +76,6 @@ namespace AdvancedPaste.Pages
                                     Item = item,
                                 };
 
-                                // Check if the text is a valid RGB hex color
-                                if (ClipboardItemHelper.IsRgbHexColor(text))
-                                {
-                                    clipboardItem.ColorHex = text.Trim();
-                                }
-
                                 items.Add(clipboardItem);
                             }
                             else if (item.Content.Contains(StandardDataFormats.Bitmap))
