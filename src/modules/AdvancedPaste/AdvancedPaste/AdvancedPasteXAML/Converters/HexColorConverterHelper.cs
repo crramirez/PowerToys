@@ -2,16 +2,25 @@
 // The Microsoft Corporation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
+using Windows.UI;
+using ManagedCommon;
+
 namespace AdvancedPaste.Converters
 {
     public static class HexColorConverterHelper
     {
-        public static Windows.UI.Color? ConvertHexColorToRgb(string hexColor)
+        public static Color? ConvertHexColorToRgb(string hexColor)
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(hexColor))
+                {
+                    return null;
+                }
+
                 // Remove # if present
-                var cleanHex = hexColor.TrimStart('#');
+                string cleanHex = hexColor.TrimStart('#');
 
                 // Expand 3-digit hex to 6-digit (#ABC -> #AABBCC)
                 if (cleanHex.Length == 3)
@@ -21,16 +30,16 @@ namespace AdvancedPaste.Converters
 
                 if (cleanHex.Length == 6)
                 {
-                    var r = System.Convert.ToByte(cleanHex.Substring(0, 2), 16);
-                    var g = System.Convert.ToByte(cleanHex.Substring(2, 2), 16);
-                    var b = System.Convert.ToByte(cleanHex.Substring(4, 2), 16);
+                    var r = Convert.ToByte(cleanHex.Substring(0, 2), 16);
+                    var g = Convert.ToByte(cleanHex.Substring(2, 2), 16);
+                    var b = Convert.ToByte(cleanHex.Substring(4, 2), 16);
 
-                    return Windows.UI.Color.FromArgb(255, r, g, b);
+                    return Color.FromArgb(255, r, g, b);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Invalid color format - return null
+                Logger.LogDebug("Invalid hex color format " + hexColor, ex.Message);
             }
 
             return null;
