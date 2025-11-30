@@ -30,7 +30,7 @@ public sealed class ClipboardItemHelperTests
     [DataRow("##FFFFFF", false)]
     public void TestIsRgbHexColor(string input, bool expected)
     {
-        var result = ClipboardItemHelper.IsRgbHexColor(input);
+        bool result = ClipboardItemHelper.IsRgbHexColor(input);
         Assert.AreEqual(expected, result, $"IsRgbHexColor(\"{input}\") should return {expected}");
     }
 }

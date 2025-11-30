@@ -68,15 +68,13 @@ namespace AdvancedPaste.Pages
                             if (item.Content.Contains(StandardDataFormats.Text))
                             {
                                 string text = await item.Content.GetTextAsync();
-                                var clipboardItem = new ClipboardItem
+                                items.Add(new ClipboardItem
                                 {
                                     Content = text,
                                     Format = ClipboardFormat.Text,
                                     Timestamp = item.Timestamp,
                                     Item = item,
-                                };
-
-                                items.Add(clipboardItem);
+                                });
                             }
                             else if (item.Content.Contains(StandardDataFormats.Bitmap))
                             {

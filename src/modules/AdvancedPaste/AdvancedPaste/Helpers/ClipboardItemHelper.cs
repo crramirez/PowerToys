@@ -11,10 +11,10 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace AdvancedPaste.Helpers
 {
-    internal static class ClipboardItemHelper
+    internal static partial class ClipboardItemHelper
     {
         // Compiled regex for better performance when checking multiple clipboard items
-        private static readonly Regex HexColorRegex = new Regex(@"^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$", RegexOptions.Compiled);
+        private static readonly Regex HexColorRegex = HexColorCompiledRegex();
 
         /// <summary>
         /// Creates a ClipboardItem from current clipboard data.
@@ -109,5 +109,8 @@ namespace AdvancedPaste.Helpers
 
             return null;
         }
+
+        [GeneratedRegex(@"^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$", RegexOptions.Compiled)]
+        private static partial Regex HexColorCompiledRegex();
     }
 }
