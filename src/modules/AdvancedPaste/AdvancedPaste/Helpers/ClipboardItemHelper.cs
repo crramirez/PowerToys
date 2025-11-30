@@ -64,18 +64,24 @@ namespace AdvancedPaste.Helpers
         /// </summary>
         public static bool IsRgbHexColor(string text)
         {
-            if (text.Length > 7)
+            if (text == null)
             {
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(text))
+            string trimmedText = text.Trim();
+            if (trimmedText.Length > 7)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(trimmedText))
             {
                 return false;
             }
 
             // Match #RGB or #RRGGBB format (case-insensitive)
-            return HexColorRegex.IsMatch(text.Trim());
+            return HexColorRegex.IsMatch(trimmedText);
         }
 
         /// <summary>

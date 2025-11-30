@@ -5,26 +5,23 @@
 using AdvancedPaste.Converters;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Windows.UI;
 
 namespace AdvancedPaste.UnitTests.ConvertersTests;
 
 [TestClass]
-public sealed class HexColorToBrushConverterTests
+public sealed class HexColorToColorConverterTests
 {
-    private HexColorToBrushConverter _converter;
-
     [TestInitialize]
     public void Setup()
     {
-        _converter = new HexColorToBrushConverter();
     }
 
     [TestMethod]
-    public void TestConvert_ValidSixDigitHex_ReturnsBrush()
+    public void TestConvert_ValidSixDigitHex_ReturnsColor()
     {
-        Windows.UI.Color result = HexColorToBrushConverter.ConvertHexColorToRGB("#FFBFAB");
+        Color? result = HexColorConverterHelper.ConvertHexColorToRgb("#FFBFAB");
         Assert.IsNotNull(result);
-        Assert.IsInstanceOfType(result, typeof(SolidColorBrush));
 
         var color = (Windows.UI.Color)result;
         Assert.AreEqual(255, color.R);
@@ -34,41 +31,32 @@ public sealed class HexColorToBrushConverterTests
     }
 
     [TestMethod]
-    public void TestConvert_ValidThreeDigitHex_ReturnsBrush()
+    public void TestConvert_ValidThreeDigitHex_ReturnsColor()
     {
-        var result = _converter.Convert("#abc", typeof(SolidColorBrush), null, null);
+        Color? result = HexColorConverterHelper.ConvertHexColorToRgb("#abc");
         Assert.IsNotNull(result);
-        Assert.IsInstanceOfType(result, typeof(SolidColorBrush));
 
-        var brush = result as SolidColorBrush;
+        var color = (Windows.UI.Color)result;
 
         // #abc should expand to #aabbcc
-        Assert.AreEqual(170, brush.Color.R); // 0xaa
-        Assert.AreEqual(187, brush.Color.G); // 0xbb
-        Assert.AreEqual(204, brush.Color.B); // 0xcc
-        Assert.AreEqual(255, brush.Color.A);
+        Assert.AreEqual(170, color.R); // 0xaa
+        Assert.AreEqual(187, color.G); // 0xbb
+        Assert.AreEqual(204, color.B); // 0xcc
+        Assert.AreEqual(255, color.A);
     }
 
     [TestMethod]
     public void TestConvert_NullOrEmpty_ReturnsNull()
     {
-        Assert.IsNull(_converter.Convert(null, typeof(SolidColorBrush), null, null));
-        Assert.IsNull(_converter.Convert(string.Empty, typeof(SolidColorBrush), null, null));
-        Assert.IsNull(_converter.Convert("   ", typeof(SolidColorBrush), null, null));
+        Assert.IsNull(HexColorConverterHelper.ConvertHexColorToRgb(null));
+        Assert.IsNull(HexColorConverterHelper.ConvertHexColorToRgb(string.Empty));
+        Assert.IsNull(HexColorConverterHelper.ConvertHexColorToRgb("   "));
     }
 
     [TestMethod]
     public void TestConvert_InvalidHex_ReturnsNull()
     {
-        Assert.IsNull(_converter.Convert("#GGGGGG", typeof(SolidColorBrush), null, null));
-        Assert.IsNull(_converter.Convert("FFBFAB", typeof(SolidColorBrush), null, null));
-        Assert.IsNull(_converter.Convert("#12345", typeof(SolidColorBrush), null, null));
-    }
-
-    [TestMethod]
-    [ExpectedException(typeof(System.NotSupportedException))]
-    public void TestConvertBack_ThrowsNotSupportedException()
-    {
-        _converter.ConvertBack(null, typeof(string), null, null);
+        Assert.IsNull(HexColorConverterHelper.ConvertHexColorToRgb("#GGGGGG"));
+        Assert.IsNull(HexColorConverterHelper.ConvertHexColorToRgb("#12345"));
     }
 }
