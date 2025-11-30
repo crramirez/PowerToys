@@ -64,18 +64,13 @@ namespace AdvancedPaste.Helpers
         /// </summary>
         public static bool IsRgbHexColor(string text)
         {
-            if (text == null)
+            if (string.IsNullOrWhiteSpace(text))
             {
                 return false;
             }
 
             string trimmedText = text.Trim();
             if (trimmedText.Length > 7)
-            {
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(trimmedText))
             {
                 return false;
             }
